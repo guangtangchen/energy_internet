@@ -19,9 +19,9 @@ def get_parse_url(url):
     res.encoding = 'UTF-8'
     text = res.text
     # parse
-    begin = """<h3 class="c-title">
- <a href="""
-    end = '</p>'
+    begin = """<h3 class="news-title_1YtI1"><a href="""
+    end = """</span>
+</div><span class="c-font-normal c-color-text"><!--s-text-->"""
     pat = re.compile(begin + '(.*?)' + end, re.S)
     answer = pat.findall(text)
     begin_href = '"'
@@ -30,10 +30,15 @@ def get_parse_url(url):
     date_and_href = []
     for item in answer:
         href = pat_href.findall(item)[0]
-        date = re.findall('\d\d\d\d年\d\d月\d\d日', item)[0]
+        date = item[len(item) - 11:]
+        if date[0] == '"':
+            date = date[1:]
+        if date[0] == '>':
+            date = date[1:]
         date_and_href.append((href, date))
         date_all.append(date)
-    print("本页面获取的条目数量：",len(date_and_href))
+    print("本页面获取的条目数量：", len(date_and_href))
+    print(url)
     with open('energy_internet/baidu_news_time_and_href.txt', 'a') as f:
         for href, date in date_and_href:
             f.write(f"{date}@@@@{href}{{{{")
@@ -41,8 +46,8 @@ def get_parse_url(url):
 
 def generate_url():
     urls = []
-    base_url = f"""https://www.baidu.com/s?tn=news&rtt=4&bsst=1&cl=2&wd=%E8%83%BD%E6%BA%90%E4%BA%92%E8%81%94%E7%BD%91&medium=0&x_bfe_rqs=03E80&x_bfe_tjscore=0.551828&tngroupname=organic_news&newVideo=12&rsv_dl=news_b_pn&pn="""
-    for i in range(12, 18):
+    base_url = f"""https://www.baidu.com/s?tn=news&rtt=4&bsst=1&cl=2&wd=%E8%83%BD%E6%BA%90%E4%BA%92%E8%81%94%E7%BD%91&medium=0&x_bfe_rqs=03E80&x_bfe_tjscore=0.100000&tngroupname=organic_news&newVideo=12&rsv_dl=news_b_pn&pn="""
+    for i in range(9, 42):  # 9， 42
         if i == 0:
             url = base_url + '0'
         else:
@@ -59,12 +64,15 @@ def main_get_news_num_per_month():
     print('日期总条数', len(date_all))
     count = 0
     for date in date_all:
-        if date[:4] == '2018':
+        if date[:4] == '2020':
+            idex = date.index("月")
+            year_month = date[5:idex]
+            year_month = "2020年" + year_month + "月"
             count += 1
-            if date[:8] in buff:
-                buff[date[:8]] += 1
+            if year_month in buff:
+                buff[year_month] += 1
             else:
-                buff[date[:8]] = 1
+                buff[year_month] = 1
     with open('energy_internet/baidu_news_num.txt', 'w') as f:
         for month in buff.keys():
             f.write(f"{month},{str(buff[month])}\n")
