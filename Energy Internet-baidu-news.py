@@ -157,8 +157,8 @@ def parse_single_href(href):
     per_item['key_21_nllyq'] = r_text.count("能量路由器")
     per_item['key_22_fbsjy'] = r_text.count("分布式交易")
     per_item['key_23_dnl'] = r_text.count("多能流")
-    per_item['key_24_dnl'] = r_text.count("碳达峰")
-    per_item['key_25_dnl'] = r_text.count("碳中和")
+    per_item['key_24_tdf'] = r_text.count("碳达峰")
+    per_item['key_25_tzh'] = r_text.count("碳中和")
     return per_item.copy()
 
 
