@@ -113,7 +113,7 @@ def main_get_words_num():
             print('此链接无效', item)
     with open('energy_internet/baidu_news_words_num.txt', 'w') as f:
         f.write('month,')
-        for word in buff_all['2019年12月'].keys():
+        for word in buff_all['2020年12月'].keys():
             f.write(f'{word},')
         f.write('\n')
         for month in buff_all.keys():
@@ -157,6 +157,8 @@ def parse_single_href(href):
     per_item['key_21_nllyq'] = r_text.count("能量路由器")
     per_item['key_22_fbsjy'] = r_text.count("分布式交易")
     per_item['key_23_dnl'] = r_text.count("多能流")
+    per_item['key_24_dnl'] = r_text.count("碳达峰")
+    per_item['key_25_dnl'] = r_text.count("碳中和")
     return per_item.copy()
 
 
@@ -169,5 +171,5 @@ def add_two_dicts(d1, d2):
 
 
 date_all = []
-main_get_news_num_per_month()
-#main_get_words_num()
+#main_get_news_num_per_month()
+main_get_words_num()
