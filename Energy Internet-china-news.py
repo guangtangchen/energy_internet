@@ -17,7 +17,7 @@ headers = {
 
 def main_get_words_num():
     buff_all = {}
-    with open('china/china_news_time_and_href.txt', 'r') as f:
+    with open('energy_internet/china_news_time_and_href.txt', 'r') as f:
         data = f.read().split('{{')
         date_and_href = []
         for item in data:
