@@ -35,10 +35,18 @@ def get_parse_url(url):
             date = date[1:]
         if date[0] == '>':
             date = date[1:]
+        print(date)
+        idex = date.index("月")
+        year_month = date[5:idex]
+        if len(year_month) == 1:
+            year_month = "0" + year_month
+        date = date[:5] + year_month + "月"
         date_and_href.append((href, date))
         date_all.append(date)
+        print(date)
     print("本页面获取的条目数量：", len(date_and_href))
     print(url)
+    # todo 每次修改需要手动清空此文件夹，不可改为w
     with open('energy_internet/baidu_news_time_and_href.txt', 'a') as f:
         for href, date in date_and_href:
             f.write(f"{date}@@@@{href}{{{{")
@@ -47,7 +55,7 @@ def get_parse_url(url):
 def generate_url():
     urls = []
     base_url = f"""https://www.baidu.com/s?tn=news&rtt=4&bsst=1&cl=2&wd=%E8%83%BD%E6%BA%90%E4%BA%92%E8%81%94%E7%BD%91&medium=0&x_bfe_rqs=03E80&x_bfe_tjscore=0.100000&tngroupname=organic_news&newVideo=12&rsv_dl=news_b_pn&pn="""
-    for i in range(9, 42):  # 9， 42
+    for i in range(7, 42):  # 9， 42
         if i == 0:
             url = base_url + '0'
         else:
@@ -67,6 +75,8 @@ def main_get_news_num_per_month():
         if date[:4] == '2020':
             idex = date.index("月")
             year_month = date[5:idex]
+            if len(year_month) == 1:
+                year_month = "0" + year_month
             year_month = "2020年" + year_month + "月"
             count += 1
             if year_month in buff:
@@ -92,7 +102,7 @@ def main_get_words_num():
         count1 += 1
         try:
             date, href = item[0], item[1]
-            if date[:4] == '2019':
+            if date[:4] == '2020':
                 print(f'获取第{str(count1)}个链接中', href)
                 words_num_single_href = parse_single_href(href)
                 if date[:8] in buff_all:
@@ -160,4 +170,4 @@ def add_two_dicts(d1, d2):
 
 date_all = []
 main_get_news_num_per_month()
-# main_get_words_num()
+#main_get_words_num()
