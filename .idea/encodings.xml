@@ -4,5 +4,6 @@
     <file url="file://$PROJECT_DIR$/china/china_news_num.txt" charset="GBK" />
     <file url="file://$PROJECT_DIR$/energy_internet/baidu_news_num.txt" charset="GBK" />
     <file url="file://$PROJECT_DIR$/energy_internet/baidu_news_time_and_href.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/energy_internet/china_news_num.txt" charset="GBK" />
   </component>
 </project>

@@ -17,7 +17,7 @@ headers = {
 
 def main_get_words_num():
     buff_all = {}
-    with open('energy_internet/china_news_time_and_href.txt', 'r') as f:
+    with open('china/china_news_time_and_href.txt', 'r') as f:
         data = f.read().split('{{')
         date_and_href = []
         for item in data:
@@ -138,7 +138,7 @@ def main_get_news_num_per_month():
                 buff[date[:8]] += 1
             else:
                 buff[date[:8]] = 1
-    with open('china/china_news_num.txt', 'w') as f:
+    with open('energy_internet/china_news_num.txt', 'w') as f:
         for month in buff.keys():
             f.write(f"{month},{str(buff[month])}\n")
     print(buff)
