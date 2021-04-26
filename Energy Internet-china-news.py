@@ -120,29 +120,30 @@ def get_parse_url(text):
 
 
 def main_get_news_num_per_month():
-    files = os.listdir('energy_internet/china')
+    files = os.listdir('./china')
     for file in files:
         if file.split('.')[-1] != 'html':
             continue
-        with open('energy_internet/china/'+file, 'r', encoding='UTF-8') as f:
+        with open('./china/'+file, 'r', encoding='UTF-8') as f:
             data = f.read()
             get_parse_url(data)
     buff = {}
     print('日期总条数', len(date_all))
     count = 0
     for date in date_all:
-        if date[:4] == '2019':
+        if date[:4] == '2020':
             count += 1
+            date = date[:4] + "年" + date[5:7] + "月"
             if date[:8] in buff:
                 buff[date[:8]] += 1
             else:
                 buff[date[:8]] = 1
-    with open('energy_internet/china_news_num.txt', 'w') as f:
+    with open('china/china_news_num.txt', 'w') as f:
         for month in buff.keys():
             f.write(f"{month},{str(buff[month])}\n")
     print(buff)
 
 
 date_all = []
-# main_get_news_num_per_month()
-main_get_words_num()
+main_get_news_num_per_month()
+#main_get_words_num()

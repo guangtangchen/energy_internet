@@ -1,0 +1,147 @@
+body{
+	font-family:Arial;
+	color: #000;
+	background:#ffffff;
+	font-size:12px;
+}
+.q, td{ 
+	margin:0; 
+	padding:0;
+}
+.q{
+	 
+	height:30px; 
+	line-height:22px; 
+	vertical-align:middle;
+	font:16px/22px arial;
+
+}
+.submitBtn {
+	height:26px;
+	line-height:20px; 
+	margin-left:5px;
+}
+#filed{
+	width:80px; 
+	height:24px; 
+	line-height:24px; 
+	margin-right:10px;
+	vertical-align:text-bottom;
+}
+a.clear:link{
+	font-size:12px;
+	color:#333333;
+	text-decoration: none;
+}
+a.clear:visited{
+	font-size:12px;
+	color:#333333;
+	text-decoration: none;
+}
+a.clear:hover{
+	font-size:12px;
+	color:#993333;
+	text-decoration: none;
+}
+ul{
+	list-style-type:none;
+	margin:0px;
+	padding:0px;
+}
+#search_rs_info{
+	clear:both; 
+	height:30px; 
+	line-height:30px; 
+	background-color:#E2EAFE; 
+	border-top:solid 1px #0066FF;
+	margin-bottom:10px;
+}
+#news_list{
+	width:595px; 
+	margin-left:13px;
+	text-align:left;
+}
+.news_item .news_title{
+	font-size:16px;
+}
+.news_item .news_content{
+	font-size:13px;
+	line-height:20px;
+}
+.news_item .news_other{
+	font-size:12px;
+	color:#009933;
+}
+.news_item .news_space{
+	height:8px;
+}
+.news_item .news_title a:link{
+	color:#0000CC;
+	text-decoration: underline;
+}
+.news_item .news_title a:visited{
+	color: #006699;
+	text-decoration: underline;
+}
+.news_item .news_title a:hover{
+	color: #0000CC;
+	text-decoration: none;
+}
+#page_bar{
+	clear:both; 
+	font-size:14px;
+	text-align:left;
+	margin-left:13px;
+}
+#page_bar a:link{
+	color: #006699;
+	text-decoration: underline;
+}
+#page_bar a:visited{
+	color: #006699;
+	text-decoration: underline;
+}
+#page_bar a:hover{
+	color: #006699;
+	text-decoration: none;
+}
+#bottom_serach_bar{
+	clear:both; 
+	margin-top:20px;
+	background-color:#E2EAFE; 
+	border-bottom:solid 1px #0066FF; 
+	border-top:solid 1px #0066FF;
+	text-align:center;
+	height:50px;
+	line-height:50%;
+}
+#bottom_serach_bar table{
+	margin-top:10px;
+	margin-bottom:10px;
+}
+#copyright{
+	clear:both; 
+	height:30px; 
+	line-height:30px; 
+	text-align:center; 
+}
+.ttc{text-align:left;padding-left:20px;}
+.tdiv a:link,.tdiv a:visited{font-size:14px;}
+.ttc,.ttc a:link{font-size:14px;padding-bottom:4px;}
+#header {
+background-color: #f3f3f3;
+height: 142px;
+border-bottom: 1px solid #FFFFFF;
+min-width: 1000px;
+width: auto !important;
+padding-left:18px;
+}
+.bound {
+width: 980px;
+overflow: hidden;
+margin: 0 auto;
+}
+#logo {
+float: left;
+margin-top: 12px;
+}
