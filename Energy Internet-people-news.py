@@ -27,7 +27,7 @@ def main_get_words_num():
         count1 += 1
         try:
             date, href = item[0], item[1]
-            if date[:4] == '2019':
+            if date[:4] == '2020':
                 print(f'获取第{str(count1)}个链接中', href)
                 words_num_single_href = parse_single_href(href)
                 if date[:7] in buff_all:
@@ -38,7 +38,7 @@ def main_get_words_num():
             print('此链接无效', item)
     with open('energy_internet/people_news_words_num.txt', 'w') as f:
         f.write('month,')
-        for word in buff_all['2019-12'].keys():
+        for word in buff_all['2020-12'].keys():
             f.write(f'{word},')
         f.write('\n')
         for month in buff_all.keys():
@@ -83,6 +83,8 @@ def parse_single_href(href):
     per_item['key_21_nllyq'] = r_text.count("能量路由器")
     per_item['key_22_fbsjy'] = r_text.count("分布式交易")
     per_item['key_23_dnl'] = r_text.count("多能流")
+    per_item['key_24_tdf'] = r_text.count("碳达峰")
+    per_item['key_25_tzh'] = r_text.count("碳中和")
     return per_item.copy()
 
 
