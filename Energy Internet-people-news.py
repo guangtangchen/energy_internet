@@ -97,8 +97,8 @@ def add_two_dicts(d1, d2):
 #   获取每月新闻数量
 def get_parse_url(text):
     # parse
-    begin = """<ul><li><b><a"""
-    end = '</li><br>'
+    begin = """class="tip-pubtime">"""
+    end = 'class="tip-source">'
     pat = re.compile(begin + '(.*?)' + end, re.S)
     answer = pat.findall(text)
     begin_href = 'href="'
@@ -117,18 +117,18 @@ def get_parse_url(text):
 
 
 def main_get_news_num_per_month():
-    files = os.listdir('energy_internet/people')
+    files = os.listdir('./people')
     for file in files:
         if file.split('.')[-1] != 'html':
             continue
-        with open('energy_internet/people/'+file, 'r') as f:
+        with open('./people/'+file, 'r', encoding="utf-8") as f:
             data = f.read()
             get_parse_url(data)
     buff = {}
     print('日期总条数', len(date_all))
     count = 0
     for date in date_all:
-        if date[:4] == '2019':
+        if date[:4] == '2020':
             count += 1
             if date[:8] in buff:
                 buff[date[:8]] += 1
@@ -141,5 +141,5 @@ def main_get_news_num_per_month():
 
 
 date_all = []
-# main_get_news_num_per_month()
+#main_get_news_num_per_month()
 main_get_words_num()
