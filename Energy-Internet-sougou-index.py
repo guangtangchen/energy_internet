@@ -29,7 +29,7 @@ get_html()
 with open('energy_internet/sougou-index.txt', 'r', encoding='UTF-8') as f:
     data = f.read()
 begin = '"kwdId":1748974,'
-end = '}'
+end = ',"id"'
 pat = re.compile(begin + '(.*?)' + end, re.S)
 pv_and_date_string = pat.findall(data)
 print(len(pv_and_date_string))
@@ -47,7 +47,7 @@ print(pv_and_date[0], len(pv_and_date))
 buff = {}
 used = []
 for date, pv in pv_and_date:
-    if date[:4] == '2019':
+    if date[:4] == '2020':
         if date in used:   # 部分数据出现了两次，需要去重
             continue
         used.append(date)
