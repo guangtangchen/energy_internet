@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 #
-# @Version : 1.0
-# @Time    : 2020/2/18
+# @Version : 2.0
+# @Time    : 2021/4/27
 # @Author  : GT
 # 百度新闻关键词爬虫
 

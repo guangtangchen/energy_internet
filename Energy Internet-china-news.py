@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 #
-# @Version : 1.0
-# @Time    : 2020/2/19
-# @Author  : dongyouyuan
+# @Version : 2.0
+# @Time    : 2021/4/27
+# @Author  : GT
 #
 # 爬取中新网相关新闻
 import re

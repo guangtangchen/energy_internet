@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 #
-# @Version : 1.0
-# @Time    : 2020/2/19
+# @Version : 2.0
+# @Time    : 2021/4/28
 # @Author  : GT
 # 爬取人民网相关新闻
 import re
