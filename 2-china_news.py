@@ -3,12 +3,18 @@ import requests
 import json
 from datetime import datetime
 from time import sleep
+from bs4 import BeautifulSoup
 
 # 目标关键词和时间范围
 KEYWORD = '能源互联网'
 START_DATE = '2025-01-01'
 END_DATE = '2025-12-31'
-SAVE_DIR = os.path.join('2025', '临时文件', '中新网新闻原文')
+SAVE_DIR = os.path.join('2025', '临时文件', '中新网新闻原文'+KEYWORD+datetime.now().strftime('%Y%m%d%H%M%S'))
+
+# 测试模式标志
+TEST_MODE = False #true只抓取1-2条先看看效果，False抓全量
+# TEST_MODE = True #true只抓取1-2条先看看效果，False抓全量
+
 
 # 创建保存目录
 os.makedirs(SAVE_DIR, exist_ok=True)
@@ -79,8 +85,19 @@ for page in range(1, pageCount + 1):
             'url': item.get('url', ''),
             'pubtime': item.get('pubtime', '')
         })
+        if TEST_MODE and len(all_news) >= 2:
+            break
     print(f'已抓取第{page}页，共{len(all_news)}条')
+    if TEST_MODE and len(all_news) >= 2:
+        break
     sleep(0.5)  # 防止被封
+
+# 清洗文件名
+def clean_filename(s):
+    import re
+    s = re.sub(r'[\\/:*?"<>|]', '', s)  # 去除非法字符
+    s = s.strip().replace(' ', '_')
+    return s[:50]  # 最多保留50字符，防止过长
 
 # 抓取新闻原文
 for idx, news in enumerate(all_news):
@@ -91,33 +108,54 @@ for idx, news in enumerate(all_news):
         continue
     try:
         resp = requests.get(url, headers=HEADERS, timeout=10)
-        if resp.status_code != 200:
-            print(f'新闻{url}获取失败')
-            continue
+        # 自动检测编码，优先用apparent_encoding
+        resp.encoding = resp.apparent_encoding or resp.encoding
         html = resp.text
-        # 尝试提取正文
-        # 常见结构：<div class="left_zw">...</div>
-        start = html.find('<div class="left_zw">')
-        if start == -1:
-            start = html.find('<div class="content">')
-        if start == -1:
+        # 用BeautifulSoup提取正文
+        soup = BeautifulSoup(html, 'html.parser')
+        content_tag = soup.find('div', class_='left_zw')
+        if content_tag is None:
+            content_tag = soup.find('div', class_='content')
+        if content_tag is None:
+            # 兼容更多结构
+            for cls in ['article-content', 'article', 'articleBody', 'main-content', 'content-main']:
+                content_tag = soup.find('div', class_=cls)
+                if content_tag:
+                    break
+        if content_tag is None:
             print(f'未找到正文: {url}')
             continue
-        end = html.find('</div>', start)
-        content_html = html[start:end]
-        # 去除HTML标签
-        import re
-        content = re.sub('<[^<]+?>', '', content_html)
-        # 文件名：发布日期_序号.txt
+        content = content_tag.get_text(separator='\n', strip=True)
+        # 若内容异常短，尝试用gbk解码
+        if len(content.strip()) < 10:
+            try:
+                html = resp.content.decode('gbk', errors='ignore')
+                soup = BeautifulSoup(html, 'html.parser')
+                content_tag = soup.find('div', class_='left_zw')
+                if content_tag is None:
+                    content_tag = soup.find('div', class_='content')
+                if content_tag is None:
+                    for cls in ['article-content', 'article', 'articleBody', 'main-content', 'content-main']:
+                        content_tag = soup.find('div', class_=cls)
+                        if content_tag:
+                            break
+                if content_tag:
+                    content = content_tag.get_text(separator='\n', strip=True)
+            except Exception as e2:
+                print(f'GBK解码失败: {url}, 错误: {e2}')
+        # 文件名：发布日期_序号_标题.txt
         date_str = pubtime.split(' ')[0].replace('-', '')
-        filename = f'{date_str}_{idx+1}.txt'
+        safe_title = clean_filename(title)
+        filename = f'{date_str}_{idx+1}_{safe_title}.txt'
         filepath = os.path.join(SAVE_DIR, filename)
         with open(filepath, 'w', encoding='utf-8') as f:
-            f.write(f'{title}\n{url}\n{pubtime}\n\n{content.strip()}')
+            f.write(f'{title}\n{url}\n{pubtime}\n\n{content}')
         print(f'保存: {filepath}')
         sleep(0.2)
+        if TEST_MODE and idx >= 1:
+            print('测试模式，仅抓取前2条，提前结束。')
+            break
     except Exception as e:
         print(f'抓取失败: {url}, 错误: {e}')
 
 print('全部完成')
-
