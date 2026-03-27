@@ -118,9 +118,9 @@ def save_to_csv(date_kw_total, date_file_count, keywords, output_path):
 if __name__ == "__main__":
     # ====================== 固定配置（无需修改）======================
     # 输入文件夹路径
-    INPUT_FOLDER = r'E:\code\python\energy_internet\2025\临时文件\中新网新闻原文-新型电力系统'
+    INPUT_FOLDER = r'E:\code\python\energy_internet\2025\临时文件\人民网新闻原文-能源互联网'
     # 输出CSV路径（V3版本）
-    OUTPUT_CSV = r'E:\code\python\energy_internet\2025\临时文件\V8中新网新闻原文-新型电力系统关键词频率统计.csv'
+    OUTPUT_CSV = r'E:\code\python\energy_internet\2025\临时文件\V8人民网新闻原文-能源互联网关键词频率统计.csv'
     # 关键词列表（无"新闻数量"，单独处理）
     KEYWORDS = [
         '多能互补', '碳中和', '碳达峰', '柔性输电', '综合能源', '氢能',
